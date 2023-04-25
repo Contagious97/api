@@ -1,0 +1,61 @@
+openapi: 3.0.1
+info:
+  title: My API
+  version: '1.0'
+  description: Handles data on the server for...
+  termsOfService: https://www.example.com/tos
+  contact:
+    email: support@example.com
+    name: Contact
+    url: https://www.example.com/contact
+  license:
+    name: License
+    url: https://www.example.com/license
+servers:
+  - url: https://my-json-server.typicode.com/contagious97/api
+    variables: {}
+    description: User api @ github
+paths:
+  /users:
+    summary: User level operations
+    description: Create and read users
+    get:
+      summary: Fetch users from the server
+      description: Returns users from server
+      operationId: fetchUsers
+      responses:
+        2xx:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1234abc
+                  username:
+                    type: string
+                    example: momo97
+                  score:
+                    type: integer
+                    example: 55
+                  active:
+                    type: boolean
+                    example: false
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /attempts:
+    summary: 'Fetch attempts '
+    description: Fetch attempts
+    get:
+      summary: Fetches attempts from server
+      description: Returns attempts from server
+      operationId: fetchAttempts
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Attempts
