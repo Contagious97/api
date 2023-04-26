@@ -24,25 +24,13 @@ paths:
       description: Returns users from server
       operationId: fetchUsers
       responses:
-        2xx:
+        '2XX':
           description: success
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    example: 1234abc
-                  username:
-                    type: string
-                    example: momo97
-                  score:
-                    type: integer
-                    example: 55
-                  active:
-                    type: boolean
-                    example: false
+                $ref: '#/components/schemas/FullUser'
+                
         default:
           description: Default error sample response
       tags:
@@ -59,3 +47,20 @@ paths:
           description: Default error sample response
       tags:
         - Attempts
+components:
+  schemas:
+    FullUser:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1234abc
+        username:
+          type: string
+          example: momo97
+        score:
+          type: integer
+          example: 55
+        active:
+          type: boolean
+          example: false
