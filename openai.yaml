@@ -15,6 +15,9 @@ servers:
   - url: https://my-json-server.typicode.com/contagious97/api
     variables: {}
     description: User api @ github
+  - url: http://localhost:3000
+    variables: {}
+    description: Local mock API
 paths:
   /users:
     summary: User level operations
@@ -24,13 +27,33 @@ paths:
       description: Returns users from server
       operationId: fetchUsers
       responses:
-        '2XX':
+        2XX:
           description: success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/FullUser'
-                
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+    post:
+      summary: Create a new user
+      description: Store user on server
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostNewUser'
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullUser'
         default:
           description: Default error sample response
       tags:
@@ -49,12 +72,9 @@ paths:
         - Attempts
 components:
   schemas:
-    FullUser:
+    PostNewUser:
       type: object
       properties:
-        id:
-          type: string
-          example: 1234abc
         username:
           type: string
           example: momo97
@@ -64,3 +84,12 @@ components:
         active:
           type: boolean
           example: false
+    FullUser:
+      allOf:
+        - $ref: '#/components/schemas/PostNewUser'
+        - type: object
+          properties:
+            id:
+              type: string
+              example: 1234abc
+            
